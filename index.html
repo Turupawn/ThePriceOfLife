@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.1.0/milligram.min.css">
+
+<body>
+
+<div ng-app="myApp" ng-controller="customersCtrl">
+
+<h1>Basic needs</h1>
+<h3>Resource: {{ basic_needs_resources }}</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Dependency</th>
+      <th>Dependency Price</th>
+      <th>Resources left</th>
+      <th>Will buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="basic_need in basic_needs">
+      <td>{{ basic_need.name }}</td>
+      <td>{{ basic_need.price }}</td>
+      <td>{{ basic_need.dependency_name }}</td>
+      <td>{{ basic_need.dependency_price }}</td>
+      <td>{{ basic_need.resources_left }}</td>
+      <td>{{ basic_need.will_buy }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Tools</h1>
+<h3>Resource: {{ tools_resources }}</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Dependency</th>
+      <th>Dependency Price</th>
+      <th>Resources left</th>
+      <th>Will buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="basic_need in tools">
+      <td>{{ basic_need.name }}</td>
+      <td>{{ basic_need.price }}</td>
+      <td>{{ basic_need.dependency_name }}</td>
+      <td>{{ basic_need.dependency_price }}</td>
+      <td>{{ basic_need.resources_left }}</td>
+      <td>{{ basic_need.will_buy }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Random</h1>
+<h3>Resource: {{ random_resources }}</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Dependency</th>
+      <th>Dependency Price</th>
+      <th>Resources left</th>
+      <th>Will buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="basic_need in random">
+      <td>{{ basic_need.name }}</td>
+      <td>{{ basic_need.price }}</td>
+      <td>{{ basic_need.dependency_name }}</td>
+      <td>{{ basic_need.dependency_price }}</td>
+      <td>{{ basic_need.resources_left }}</td>
+      <td>{{ basic_need.will_buy }}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+
+</body>
+</html>
+
+<script>
+
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+arr={ basic_needs:
+      [ 
+        {id:1, name:"Comida",price:1500},
+        {id:2, name:"Vivienda",price:2500},
+        {id:3, name:"Gaso",price:100},
+        {id:4, name:"Comida",price:3000,dependency:1},
+        {id:5, name:"Gaso",price:300,dependency:3},
+        {id:6, name:"Vivienda",price:4000,dependency:2},
+        {id:7, name:"Ropa",price:2000},
+        {id:8, name:"Comida",price:6000,dependency:4},
+        {id:9, name:"Ropa",price:5000,dependency:7},
+        {id:10, name:"Vivienda",price:7000,dependency:6},
+        {id:11, name:"Ropa",price:8000,dependency:9},
+      ],
+      tools:
+      [ 
+        {id:1, name:"Filamento",price:500},
+        {id:2, name:"3dPrinted closet",price:1000},
+        {id:3, name:"Filamento",price:1000,dependency:1},
+        {id:4, name:"Silla",price:2000},
+        {id:5, name:"3d Printed mesa",price:1500},
+        {id:6, name:"Filamento",price:2000,dependency:3},
+        {id:7, name:"Audifonos",price:500},
+        {id:8, name:"Filamento",price:5000,dependency:6},
+        {id:9, name:"Compu nueva",price:20000},
+        {id:10, name:"Moto nueva",price:35000},
+        {id:11, name:"Compu nueva",price:40000,dependency:9}
+      ],
+      random:
+      [ 
+        {id:1, name:"Spotify",price:135},
+        {id:2, name:"Netflix",price:180},
+        {id:3, name:"Juegos",price:100},
+        {id:4, name:"Hori",price:1000},
+        {id:5, name:"Viaje",price:1000},
+        {id:6, name:"Juegos",price:500, dependency:3},
+        {id:7, name:"Viaje",price:2000, dependency:5},
+        {id:8, name:"Juegos",price:3000, dependency:6},
+        {id:9, name:"Viaje",price:10000, dependency:7},
+        {id:10, name:"Viaje",price:60000, dependency:9}
+      ]
+    }
+
+resource = getQueryParams(document.location.search).resource;
+
+basic_needs_multiplier= Math.log(2)
+tools_multiplier= 2
+random_multiplier= Math.exp(2,2)
+
+console.log(basic_needs_multiplier)
+console.log(tools_multiplier)
+console.log(random_multiplier)
+
+initial_resources = {basic_needs:resource*0.60,tools:resource*0.30, random:resource*0.10}
+
+resources = {basic_needs:resource*0.60,tools:resource*0.30, random:resource*0.10}
+
+basic_needs = []
+tools = []
+
+populated_array={basic_needs:{},tools:{}, random:{}}
+
+function search(id, array)
+{
+  for(m=0;m<array.length;m++)
+  {
+    if(array[m].id==id)
+    {
+      return array[m]
+    }
+  }
+}
+
+function populate_array(stack_name)
+{
+  stack = []
+  for(i=0;i<arr[stack_name].length;i++)
+  {
+    current = arr[stack_name][i]
+    if(search(current.dependency,arr[stack_name]))
+    {
+      current.dependency_name=search(current.dependency,arr[stack_name]).name
+      current.dependency_price=search(current.dependency,arr[stack_name]).price
+      resources[stack_name]+=current.dependency_price
+    }
+    resources[stack_name]-=current.price
+    current.resources_left=resources[stack_name]
+    if(resources[stack_name]>=0)
+    {
+      current.will_buy="yes"
+    }else
+    {
+      current.will_buy="no"
+    }
+    stack.push(current)
+  }
+  populated_array[stack_name]=stack
+}
+
+populate_array('basic_needs')
+populate_array('tools')
+populate_array('random')
+
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+    $scope.basic_needs = populated_array['basic_needs']
+    $scope.tools = populated_array['tools']
+    $scope.random = populated_array['random']
+
+    $scope.basic_needs_resources = initial_resources['basic_needs']
+    $scope.tools_resources = initial_resources['tools']
+    $scope.random_resources = initial_resources['random']
+});
+</script>
