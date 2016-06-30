@@ -152,17 +152,26 @@ arr={ basic_needs:
 
 resource = getQueryParams(document.location.search).resource;
 
-basic_needs_multiplier= Math.log(2)
-tools_multiplier= 2
-random_multiplier= Math.exp(2,2)
+//risk_factor=2.6835
+risk_factor=resource/10000
+basic_needs_multiplier= Math.log(risk_factor) / Math.log(2)+4
+tools_multiplier= risk_factor*2
+random_multiplier= Math.pow(2,risk_factor)-1
 
-console.log(basic_needs_multiplier)
-console.log(tools_multiplier)
-console.log(random_multiplier)
+total_multipliers=basic_needs_multiplier+tools_multiplier+random_multiplier
 
-initial_resources = {basic_needs:resource*0.60,tools:resource*0.30, random:resource*0.10}
+basic_needs_percentage=basic_needs_multiplier/total_multipliers
+tools_percentage=tools_multiplier/total_multipliers
+random_percentage=random_multiplier/total_multipliers
 
-resources = {basic_needs:resource*0.60,tools:resource*0.30, random:resource*0.10}
+console.log(basic_needs_percentage)
+console.log(tools_percentage)
+console.log(random_percentage)
+
+
+initial_resources = {basic_needs:resource*basic_needs_percentage,tools:resource*tools_percentage, random:resource*random_percentage}
+
+resources = {basic_needs:resource*basic_needs_percentage,tools:resource*tools_percentage, random:resource*random_percentage}
 
 basic_needs = []
 tools = []
