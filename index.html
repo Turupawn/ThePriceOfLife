@@ -24,17 +24,17 @@
       <th>Price (Lempiras)</th>
       <th>Dependency</th>
       <th>Dependency Price (Lempiras)</th>
-      <th>Resources left</th>
+      <!--<th>Resources left</th>-->
       <th>Will buy</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="basic_need in basic_needs">
       <td>{{ basic_need.name }}</td>
-      <td>{{ basic_need.price }}</td>
+      <td>L.{{ basic_need.price }}</td>
       <td>{{ basic_need.dependency_name }}</td>
-      <td>{{ basic_need.dependency_price }}</td>
-      <td>{{ basic_need.resources_left }}</td>
+      <td>L.{{ basic_need.dependency_price }}</td>
+      <!--<td>{{ basic_need.resources_left }}</td>-->
       <td>{{ basic_need.will_buy }}</td>
     </tr>
   </tbody>
@@ -49,17 +49,17 @@
       <th>Price (Lempiras)</th>
       <th>Dependency</th>
       <th>Dependency Price (Lempiras)</th>
-      <th>Resources left</th>
+      <!--<th>Resources left</th>-->
       <th>Will buy</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="basic_need in tools">
       <td>{{ basic_need.name }}</td>
-      <td>{{ basic_need.price }}</td>
+      <td>L.{{ basic_need.price }}</td>
       <td>{{ basic_need.dependency_name }}</td>
-      <td>{{ basic_need.dependency_price }}</td>
-      <td>{{ basic_need.resources_left }}</td>
+      <td>L.{{ basic_need.dependency_price }}</td>
+      <!--<td>{{ basic_need.resources_left }}</td>-->
       <td>{{ basic_need.will_buy }}</td>
     </tr>
   </tbody>
@@ -74,17 +74,17 @@
       <th>Price (Lempiras)</th>
       <th>Dependency</th>
       <th>Dependency Price (Lempiras)</th>
-      <th>Resources left</th>
+      <!--<th>Resources left</th>-->
       <th>Will buy</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="basic_need in random">
       <td>{{ basic_need.name }}</td>
-      <td>{{ basic_need.price }}</td>
+      <td>L.{{ basic_need.price }}</td>
       <td>{{ basic_need.dependency_name }}</td>
-      <td>{{ basic_need.dependency_price }}</td>
-      <td>{{ basic_need.resources_left }}</td>
+      <td>L.{{ basic_need.dependency_price }}</td>
+      <!--<td>{{ basic_need.resources_left }}</td>-->
       <td>{{ basic_need.will_buy }}</td>
     </tr>
   </tbody>
