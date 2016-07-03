@@ -205,6 +205,7 @@ function populate_array(stack_name)
       current.dependency_name=search(current.dependency,arr[stack_name]).name
       current.dependency_price=search(current.dependency,arr[stack_name]).price
       resources[stack_name]+=current.dependency_price
+      current.dependency_price="L."+current.dependency_price
     }
     resources[stack_name]-=current.price
     current.resources_left=resources[stack_name]
@@ -230,9 +231,9 @@ app.controller('customersCtrl', function($scope, $http) {
     $scope.tools = populated_array['tools']
     $scope.random = populated_array['random']
 
-    $scope.basic_needs_resources = initial_resources['basic_needs']
-    $scope.tools_resources = initial_resources['tools']
-    $scope.random_resources = initial_resources['random']
+    $scope.basic_needs_resources = (initial_resources['basic_needs']).toFixed(2)
+    $scope.tools_resources = (initial_resources['tools']).toFixed(2)
+    $scope.random_resources = (initial_resources['random']).toFixed(2)
     $scope.basic_needs_percentage = (basic_needs_percentage*100).toFixed(2)
     $scope.tools_percentage = (tools_percentage*100).toFixed(2)
     $scope.random_percentage = (random_percentage*100).toFixed(2)
